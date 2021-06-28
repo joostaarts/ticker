@@ -13,6 +13,7 @@ namespace Ticker
         private TickerWebSocketConnection webSocket;
         private ScreenPopup popup;
         private IConfigurationRoot configuration;
+        private bool closing = false;
 
         public delegate void TickerUpdate(DTO.Symbol symbol);
 
@@ -21,7 +22,7 @@ namespace Ticker
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_Load(object sender, EventArgs e)
         {
             var builder = new ConfigurationBuilder()
               .AddJsonFile("appsettings.json",
@@ -42,27 +43,31 @@ namespace Ticker
             webSocket.TickerUpdate += WebSocket_TickerUpdate;
             webSocket.Disconnected += WebSocket_Disconnected;
 
-            try
-            {
-                webSocket.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            ConnectWebsocket();
         }
 
         private void WebSocket_Disconnected(object sender, EventArgs e)
         {
-            try
+            ConnectWebsocket();
+        }
+
+        private async void ConnectWebsocket()
+        {
+            var connected = false;
+
+            while (!connected & !closing)
             {
-                webSocket.Open();
-            }
-            catch (Exception)
-            {
-                popup.SetLabelText("Disconnected");
+                try
+                {
+                    await webSocket.Open();
+                    connected = true;
+                }
+                catch (Exception)
+                {
+                }
             }
         }
+
 
         private void WebSocket_TickerUpdate(object sender, TickerUpdateEventArgs e)
         {
@@ -71,7 +76,7 @@ namespace Ticker
 
         private void HandleUpdate(Symbol dto)
         {
-            var value = dto.Value.ClosingValue.TrimEnd('0');
+            var value = dto.Value.ClosingValue.TrimEnd('0').PadRight(7, '0');
             Text = value;
             popup.SetLabelText(value);
 
@@ -88,6 +93,7 @@ namespace Ticker
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            closing = true;
             webSocket.Disconnected -= WebSocket_Disconnected;
             webSocket.TickerUpdate -= WebSocket_TickerUpdate;
 
@@ -119,6 +125,20 @@ namespace Ticker
         {
             popup.Visible = !popup.Visible;
             showTickerValueToolStripMenuItem.Checked = popup.Visible;
+        }
+
+        private void SettingsStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var val = Microsoft.VisualBasic.Interaction.InputBox("Enter alarm threshold.");
+
+            if (double.TryParse(val, NumberStyles.Float, CultureInfo.InvariantCulture, out var threshold))
+            {
+                alarm.Threshold = threshold;
+            }
+            else
+            {
+                MessageBox.Show($"'{val}' is not a valid float");
+            }
         }
     }
 }

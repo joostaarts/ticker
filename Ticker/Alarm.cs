@@ -11,19 +11,19 @@ namespace Ticker
     class Alarm
     {
         private readonly Mutex mutex = new Mutex();
-        private readonly double threshold;
         private SoundPlayer soundPlayer;
         public bool Enabled { get; set; } = true;
+        public double Threshold { get; set; }
 
         public Alarm(double threshold)
         {
             soundPlayer = new SoundPlayer(@"C:\Windows\Media\Alarm01.wav");
-            this.threshold = threshold;
+            Threshold = threshold;
         }
 
         public void TriggerAlarm(double value)
         {
-            if (Enabled && value >= threshold)
+            if (Enabled && value >= Threshold)
             {
                 Task.Run(() =>
                 {

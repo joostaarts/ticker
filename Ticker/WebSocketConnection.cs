@@ -4,6 +4,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ticker
@@ -24,7 +25,7 @@ namespace Ticker
             this.url = url;
         }
 
-        public async void Open()
+        public async Task Open()
         {
             socket?.Dispose();
             socket = new ClientWebSocket();
@@ -68,6 +69,12 @@ namespace Ticker
                 catch (System.Threading.Tasks.TaskCanceledException)
                 {
                     break;
+                }
+                catch 
+                {
+                    Disconnected?.Invoke(this, EventArgs.Empty);
+                    socket.Dispose();
+                    return;
                 }
 
 

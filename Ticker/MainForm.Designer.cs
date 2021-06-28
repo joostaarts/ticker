@@ -37,6 +37,7 @@ namespace Ticker
             this.showTickerValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingsStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,15 +54,16 @@ namespace Ticker
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.disableAlarmToolStripMenuItem,
             this.showTickerValueToolStripMenuItem,
+            this.SettingsStripMenuItem1,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(173, 88);
+            this.contextMenuStrip.Size = new System.Drawing.Size(211, 142);
             // 
             // disableAlarmToolStripMenuItem
             // 
             this.disableAlarmToolStripMenuItem.Name = "disableAlarmToolStripMenuItem";
-            this.disableAlarmToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.disableAlarmToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.disableAlarmToolStripMenuItem.Text = "Disable Alarm";
             this.disableAlarmToolStripMenuItem.Click += new System.EventHandler(this.disableAlarmToolStripMenuItem_Click);
             // 
@@ -70,21 +72,28 @@ namespace Ticker
             this.showTickerValueToolStripMenuItem.Checked = true;
             this.showTickerValueToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showTickerValueToolStripMenuItem.Name = "showTickerValueToolStripMenuItem";
-            this.showTickerValueToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.showTickerValueToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.showTickerValueToolStripMenuItem.Text = "Show Ticker";
             this.showTickerValueToolStripMenuItem.Click += new System.EventHandler(this.showTickerValueToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // SettingsStripMenuItem1
+            // 
+            this.SettingsStripMenuItem1.Name = "SettingsStripMenuItem1";
+            this.SettingsStripMenuItem1.Size = new System.Drawing.Size(210, 26);
+            this.SettingsStripMenuItem1.Text = "Settings";
+            this.SettingsStripMenuItem1.Click += new System.EventHandler(this.SettingsStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -108,6 +117,7 @@ namespace Ticker
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTickerValueToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem SettingsStripMenuItem1;
     }
 }
 
